@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -13,7 +13,9 @@ export class CockpitComponent implements OnInit {
 // tslint:disable-next-line: no-output-rename
   @Output('bpCreated') blueprintCreated = new EventEmitter<{serverName: string, serverContent: string}>() ;
   // newServerName = '';
-  newServerContent = '';
+  // newServerContent = '';
+  // Para obtner el elemento desde el frontend
+  @ViewChild('serverContentInput') serverContentInput: ElementRef;
 
 
   constructor() { }
@@ -26,7 +28,7 @@ export class CockpitComponent implements OnInit {
     this.serverCreated.emit(
       {
         serverName: nameInput.value,
-        serverContent: this.newServerContent }
+        serverContent: this.serverContentInput.nativeElement.value }
     );
   }
 
@@ -34,7 +36,7 @@ export class CockpitComponent implements OnInit {
     this.blueprintCreated.emit(
       {
         serverName: nameInput.value,
-        serverContent: this.newServerContent }
+        serverContent: this.serverContentInput.nativeElement.value }
     );
   }
 }
